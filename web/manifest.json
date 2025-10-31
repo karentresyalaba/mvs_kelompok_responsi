@@ -1,6 +1,6 @@
 {
-    "name": "lensamart_glasses",
-    "short_name": "lensamart_glasses",
+    "name": "lensamart_app",
+    "short_name": "lensamart_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

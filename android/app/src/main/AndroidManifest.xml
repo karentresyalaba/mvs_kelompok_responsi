@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="lensamart_glasses"
+        android:label="lensamart_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

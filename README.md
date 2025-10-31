@@ -1,4 +1,4 @@
-# lensamart_glasses
+# lensamart_app
 
 A new Flutter project.
 
