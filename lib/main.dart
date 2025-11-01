@@ -31,6 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   String _selectedCategory = 'All';
+  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +39,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black),
-          onPressed: () {},
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Colors.black),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
         title: const Icon(
           Icons.remove_red_eye_outlined,
@@ -54,6 +59,163 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {},
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              // Profile Header
+              Container(
+                padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.orange.shade400, Colors.orange.shade600],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Roopa',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'example@gmail.com',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              // Menu Items
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    _buildDrawerItem(
+                      icon: Icons.home_outlined,
+                      title: 'Home',
+                      color: Colors.orange,
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.shopping_bag_outlined,
+                      title: 'Products',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.widgets_outlined,
+                      title: 'Components',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.diamond_outlined,
+                      title: 'Pages',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.star_outline,
+                      title: 'Featured',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.favorite_outline,
+                      title: 'Wishlist',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.receipt_outlined,
+                      title: 'Orders',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.shopping_cart_outlined,
+                      title: 'My Cart',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.person_outline,
+                      title: 'Profile',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.chat_bubble_outline,
+                      title: 'Chat List',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    _buildDrawerItem(
+                      icon: Icons.logout_outlined,
+                      title: 'Logout',
+                      color: Colors.orange,
+                      onTap: () {},
+                    ),
+                    
+                    // Theme Option
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.brightness_6_outlined, color: Colors.orange, size: 24),
+                          const SizedBox(width: 16),
+                          const Text(
+                            'Theme Option',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Spacer(),
+                          Switch(
+                            value: _isDarkMode,
+                            onChanged: (value) {
+                              setState(() {
+                                _isDarkMode = value;
+                              });
+                            },
+                            activeColor: Colors.orange,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -86,21 +248,64 @@ class _HomePageState extends State<HomePage> {
             // Banner
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
-              height: 180,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFFFF176), Color(0xFF80DEEA)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Stack(
+                  children: [
+                    // Background with gradient and image
+                    Row(
+                      children: [
+                        // Yellow background section
+                        Expanded(
+                          flex: 55,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xFFFFF59D), Color(0xFFFFF176)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Image section - eyeglasses close-up
+                        Expanded(
+                          flex: 45,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.grey.shade300, Colors.grey.shade400],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Image.network(
+                              'https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&q=80',
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              alignment: Alignment.center,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.network(
+                                  'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',
+                                  fit: BoxFit.cover,
+                                  height: double.infinity,
+                                  alignment: Alignment.center,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Text content overlay
+                    Positioned(
+                      left: 24,
+                      top: 0,
+                      bottom: 0,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -111,6 +316,7 @@ class _HomePageState extends State<HomePage> {
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                               height: 1.2,
+                              color: Colors.black,
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -120,37 +326,27 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
+                                horizontal: 24,
+                                vertical: 12,
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(25),
                               ),
+                              elevation: 0,
                             ),
                             child: const Text(
                               'Explore More',
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      ),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=400',
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                      ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -299,6 +495,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildDrawerItem({
+    required IconData icon,
+    required String title,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: color, size: 24),
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+      onTap: onTap,
+    );
+  }
+
   Widget _buildCategoryChip(String label) {
     final isSelected = _selectedCategory == label;
     return Padding(
@@ -329,9 +545,10 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
-            spreadRadius: 1,
-            blurRadius: 5,
+            color: Colors.grey.withValues(alpha: 0.15),
+            spreadRadius: 0,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -343,17 +560,25 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 140,
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: Colors.grey[50],
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                   ),
                 ),
                 child: Center(
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=300',
-                    height: 100,
-                    fit: BoxFit.contain,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=300&q=80',
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.network(
+                          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&q=80',
+                          fit: BoxFit.contain,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -362,9 +587,15 @@ class _HomePageState extends State<HomePage> {
                 right: 8,
                 child: Container(
                   padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 4,
+                      ),
+                    ],
                   ),
                   child: const Icon(
                     Icons.favorite_border,
@@ -385,6 +616,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
+                    color: Colors.black87,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
