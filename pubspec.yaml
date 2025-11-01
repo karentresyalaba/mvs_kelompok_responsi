@@ -22,25 +22,33 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
- 
   assets:
     - assets/images/welcome.png
-    
     - assets/images/bg1.png
     - assets/images/logo.png
     - assets/images/logo-white.png
-    
-    - assets/images/onboarding.png
     - assets/images/logo-dark.png
 
+    - assets/images/onboarding.png
     - assets/images/signin.png
     - assets/images/google.png
     - assets/images/apple.png
-
     - assets/images/create.png
     - assets/images/forgot.png
     - assets/images/reset.png
     - assets/images/verify.png
+    - assets/images/home.png
+
+    - assets/images/product1.png
+    - assets/images/product2.png
+    - assets/images/product3.png
+    - assets/images/product4.png
+    - assets/images/product5.png
+    - assets/images/product6.png
+    - assets/images/product7.png
+    - assets/images/product8.png
+    - assets/images/product9.png
+
     
   fonts:
     - family: TomatoGrotesk

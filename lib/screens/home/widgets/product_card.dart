@@ -1,118 +1,101 @@
 import 'package:flutter/material.dart';
+import '../../../models/product.dart';
 
-class ProductCardWidget extends StatelessWidget {
-  final String imageUrl;
-  final String productName;
-  final String price;
-  final double rating;
+class ProductCard extends StatelessWidget {
+  final Product product;
+  final VoidCallback? onFavorite;
 
-  const ProductCardWidget({
-    Key? key,
-    required this.imageUrl,
-    required this.productName,
-    required this.price,
-    required this.rating,
-  }) : super(key: key);
+  const ProductCard({super.key, required this.product, this.onFavorite});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 5,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // POWERED Badge
+            if (product.isPowered)
               Container(
-                height: 140,
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
+                  color: Colors.cyan[50],
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child: Image.network(
-                    imageUrl,
-                    height: 100,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.favorite_border,
-                    size: 18,
-                    color: Colors.grey,
+                child: const Text(
+                  'POWERED',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.cyan,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'TomatoGrotesk',
                   ),
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            const SizedBox(height: 8),
+
+            // Favorite Icon
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: const Icon(Icons.favorite_border, size: 20),
+                onPressed: onFavorite,
+              ),
+            ),
+
+            // Product Image
+            Center(
+              child: Image.asset(
+                product.image,
+                height: 80,
+                fit: BoxFit.contain,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // Title
+            Text(
+              product.title,
+              style: const TextStyle(
+                fontSize: 12,
+                height: 1.3,
+                fontFamily: 'TomatoGrotesk',
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 8),
+
+            // Price & Rating
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  productName,
+                  '\$${product.price.toStringAsFixed(0)}',
                   style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontFamily: 'TomatoGrotesk',
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    const Icon(Icons.star, size: 16, color: Colors.orange),
+                    const SizedBox(width: 4),
                     Text(
-                      price,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.star, size: 16, color: Color(0xFFFFA726)),
-                        const SizedBox(width: 4),
-                        Text(
-                          rating.toString(),
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                      product.rating.toString(),
+                      style: const TextStyle(fontSize: 12, fontFamily: 'TomatoGrotesk'),
                     ),
                   ],
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
