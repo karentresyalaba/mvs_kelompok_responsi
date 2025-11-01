@@ -109,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: ScaleTransition(
                     scale: _logoScale,
                     child: Image.asset(
-                      'assets/images/logo-dark.png',
+                      'assets/images/logo.png',
                       height: 110,
                       errorBuilder: (_, __, ___) => const Icon(
                         Icons.visibility,

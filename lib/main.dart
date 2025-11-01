@@ -10,8 +10,8 @@ class EyewearApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Eyewear Store',
       debugShowCheckedModeBanner: false,
-      title: 'Eyewear Shop',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
@@ -30,192 +30,97 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  String _selectedCategory = 'All';
-  bool _isDarkMode = false;
+  String selectedCategory = 'All';
+
+  final List<Map<String, dynamic>> products = [
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.purple.shade200,
+      'isPowered': false,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.blue.shade200,
+      'isPowered': false,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.green.shade700,
+      'isPowered': true,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.yellow.shade600,
+      'isPowered': true,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.grey.shade400,
+      'isPowered': false,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.blue.shade400,
+      'isPowered': true,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.pink.shade300,
+      'isPowered': true,
+    },
+    {
+      'name': 'Silver Purple Full Rim Cat Eye',
+      'price': '\$1100',
+      'rating': 4.8,
+      'color': Colors.grey.shade700,
+      'isPowered': false,
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.menu, color: Colors.black, size: 28),
+          onPressed: () {},
         ),
-        title: const Icon(
-          Icons.remove_red_eye_outlined,
-          color: Colors.black,
-          size: 32,
+        title: Image.asset(
+          'assets/images/home.png',
+          height: 30,
+          errorBuilder: (context, error, stackTrace) {
+            return const Icon(
+              Icons.remove_red_eye_outlined,
+              color: Colors.black,
+              size: 30,
+            );
+          },
         ),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+            icon: const Icon(Icons.notifications_outlined,
+                color: Colors.black, size: 28),
             onPressed: () {},
           ),
         ],
-      ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              // Profile Header
-              Container(
-                padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.orange.shade400, Colors.orange.shade600],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 35,
-                      backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Roopa',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'example@gmail.com',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // Menu Items
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    _buildDrawerItem(
-                      icon: Icons.home_outlined,
-                      title: 'Home',
-                      color: Colors.orange,
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.shopping_bag_outlined,
-                      title: 'Products',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.widgets_outlined,
-                      title: 'Components',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.diamond_outlined,
-                      title: 'Pages',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.star_outline,
-                      title: 'Featured',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.favorite_outline,
-                      title: 'Wishlist',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.receipt_outlined,
-                      title: 'Orders',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.shopping_cart_outlined,
-                      title: 'My Cart',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.person_outline,
-                      title: 'Profile',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.chat_bubble_outline,
-                      title: 'Chat List',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.logout_outlined,
-                      title: 'Logout',
-                      color: Colors.orange,
-                      onTap: () {},
-                    ),
-                    
-                    // Theme Option
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.brightness_6_outlined, color: Colors.orange, size: 24),
-                          const SizedBox(width: 16),
-                          const Text(
-                            'Theme Option',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Spacer(),
-                          Switch(
-                            value: _isDarkMode,
-                            onChanged: (value) {
-                              setState(() {
-                                _isDarkMode = value;
-                              });
-                            },
-                            activeColor: Colors.orange,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -226,86 +131,49 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade200,
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Search Something...',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
-                    suffixIcon: Icon(Icons.tune, color: Colors.grey[700]),
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                    prefixIcon:
+                        Icon(Icons.search, color: Colors.grey.shade400),
+                    suffixIcon: Icon(Icons.tune, color: Colors.grey.shade700),
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
+                        horizontal: 16, vertical: 14),
                   ),
                 ),
               ),
             ),
 
-            // Banner
+            // Hero Banner
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
-              height: 200,
+              height: 180,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFFF176), Color(0xFFFFEB3B)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Stack(
-                  children: [
-                    // Background with gradient and image
-                    Row(
-                      children: [
-                        // Yellow background section
-                        Expanded(
-                          flex: 55,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Color(0xFFFFF59D), Color(0xFFFFF176)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Image section - eyeglasses close-up
-                        Expanded(
-                          flex: 45,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.grey.shade300, Colors.grey.shade400],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                            ),
-                            child: Image.network(
-                              'https://images.unsplash.com/photo-1577803645773-f96470509666?w=600&q=80',
-                              fit: BoxFit.cover,
-                              height: double.infinity,
-                              alignment: Alignment.center,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.network(
-                                  'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',
-                                  fit: BoxFit.cover,
-                                  height: double.infinity,
-                                  alignment: Alignment.center,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Text content overlay
-                    Positioned(
-                      left: 24,
-                      top: 0,
-                      bottom: 0,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -313,10 +181,10 @@ class _HomePageState extends State<HomePage> {
                           const Text(
                             'Find Your\nPerfect\nEyewear Look',
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 28,
                               fontWeight: FontWeight.bold,
-                              height: 1.2,
                               color: Colors.black,
+                              height: 1.2,
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -326,39 +194,62 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: Colors.white,
                               foregroundColor: Colors.black,
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 24,
-                                vertical: 12,
-                              ),
+                                  horizontal: 24, vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
-                              elevation: 0,
                             ),
                             child: const Text(
                               'Explore More',
                               style: TextStyle(
+                                fontSize: 15,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 14,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFFFFC1CC),
+                            Color(0xFF80E6CC),
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.person,
+                        size: 120,
+                        color: Colors.white54,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
             const SizedBox(height: 24),
 
+            // Let's Get Started
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 "Let's Get Started!",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -367,7 +258,7 @@ class _HomePageState extends State<HomePage> {
 
             // Category Tabs
             SizedBox(
-              height: 40,
+              height: 50,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -381,7 +272,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
 
             // Product Grid
             Padding(
@@ -391,13 +282,13 @@ class _HomePageState extends State<HomePage> {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.75,
+                  childAspectRatio: 0.7,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
                 ),
-                itemCount: 4,
+                itemCount: products.length,
                 itemBuilder: (context, index) {
-                  return _buildProductCard();
+                  return _buildProductCard(products[index]);
                 },
               ),
             ),
@@ -411,142 +302,131 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.2),
-              spreadRadius: 1,
+              color: Colors.grey.shade300,
               blurRadius: 10,
+              offset: const Offset(0, -2),
             ),
           ],
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
         ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-          child: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: const Color(0xFFFFA726),
-            unselectedItemColor: Colors.grey,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            elevation: 0,
-            items: [
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.grey,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          elevation: 0,
+          items: [
+            BottomNavigationBarItem(
+              icon: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 0
+                      ? Colors.orange.shade300
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.home_outlined),
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border),
-                label: 'Favorite',
-              ),
-              BottomNavigationBarItem(
-                icon: Stack(
-                  children: [
-                    const Icon(Icons.shopping_cart_outlined),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
+              label: 'Home',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border),
+              label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+              icon: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const Icon(Icons.shopping_cart_outlined),
+                  Positioned(
+                    right: -6,
+                    top: -6,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 18,
+                        minHeight: 18,
+                      ),
+                      child: const Text(
+                        '14',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
                         ),
-                        constraints: const BoxConstraints(
-                          minWidth: 16,
-                          minHeight: 16,
-                        ),
-                        child: const Text(
-                          '2',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ],
-                ),
-                label: 'Cart',
+                  ),
+                ],
               ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_outlined),
-                label: 'Orders',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                label: 'Profile',
-              ),
-            ],
-          ),
+              label: 'Cart',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_outlined),
+              label: 'Orders',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildDrawerItem({
-    required IconData icon,
-    required String title,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return ListTile(
-      leading: Icon(icon, color: color, size: 24),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-      onTap: onTap,
     );
   }
 
   Widget _buildCategoryChip(String label) {
-    final isSelected = _selectedCategory == label;
+    bool isSelected = selectedCategory == label;
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: ChoiceChip(
-        label: Text(label),
+        label: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.black : Colors.grey.shade700,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+            fontSize: 16,
+          ),
+        ),
         selected: isSelected,
         onSelected: (selected) {
           setState(() {
-            _selectedCategory = label;
+            selectedCategory = label;
           });
         },
-        backgroundColor: Colors.grey[200],
-        selectedColor: const Color(0xFFFFA726),
-        labelStyle: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+        backgroundColor: Colors.white,
+        selectedColor: Colors.orange.shade200,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: BorderSide(
+            color: isSelected ? Colors.orange.shade200 : Colors.grey.shade300,
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );
   }
 
-  Widget _buildProductCard() {
+  Widget _buildProductCard(Map<String, dynamic> product) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.15),
-            spreadRadius: 0,
+            color: Colors.grey.shade200,
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -555,68 +435,69 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              Container(
-                height: 140,
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
+          // Image Container
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  child: CustomPaint(
+                    painter: GlassesPainter(color: product['color']),
                   ),
                 ),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=300&q=80',
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Image.network(
-                          'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=300&q=80',
-                          fit: BoxFit.contain,
-                        );
-                      },
+                if (product['isPowered'])
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade100,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        'POWERED',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.favorite_border),
+                      color: Colors.grey.shade400,
+                      iconSize: 20,
+                      onPressed: () {},
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.favorite_border,
-                    size: 18,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
+          // Product Info
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Silver Purple Full Rim Cat Eye',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black87,
+                Text(
+                  product['name'],
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -625,23 +506,23 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '\$1100',
-                      style: TextStyle(
-                        fontSize: 16,
+                    Text(
+                      product['price'],
+                      style: const TextStyle(
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.red,
                       ),
                     ),
                     Row(
-                      children: const [
-                        Icon(Icons.star, size: 16, color: Color(0xFFFFA726)),
-                        SizedBox(width: 4),
+                      children: [
+                        const Icon(Icons.star, color: Colors.orange, size: 16),
+                        const SizedBox(width: 4),
                         Text(
-                          '4.8',
+                          product['rating'].toString(),
                           style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: Colors.grey.shade600,
                           ),
                         ),
                       ],
@@ -655,4 +536,64 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+class GlassesPainter extends CustomPainter {
+  final Color color;
+
+  GlassesPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 3;
+
+    final fillPaint = Paint()
+      ..color = color.withOpacity(0.1)
+      ..style = PaintingStyle.fill;
+
+    // Left lens
+    final leftRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(size.width * 0.05, size.height * 0.3, size.width * 0.35,
+          size.height * 0.4),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(leftRect, fillPaint);
+    canvas.drawRRect(leftRect, paint);
+
+    // Right lens
+    final rightRect = RRect.fromRectAndRadius(
+      Rect.fromLTWH(size.width * 0.6, size.height * 0.3, size.width * 0.35,
+          size.height * 0.4),
+      const Radius.circular(8),
+    );
+    canvas.drawRRect(rightRect, fillPaint);
+    canvas.drawRRect(rightRect, paint);
+
+    // Bridge
+    canvas.drawLine(
+      Offset(size.width * 0.4, size.height * 0.5),
+      Offset(size.width * 0.6, size.height * 0.5),
+      paint,
+    );
+
+    // Left temple
+    canvas.drawLine(
+      Offset(size.width * 0.05, size.height * 0.5),
+      Offset(0, size.height * 0.5),
+      paint,
+    );
+
+    // Right temple
+    canvas.drawLine(
+      Offset(size.width * 0.95, size.height * 0.5),
+      Offset(size.width, size.height * 0.5),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
