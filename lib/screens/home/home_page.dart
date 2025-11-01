@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SearchBarWidget(),
-            const BannerWidget(),
+            SearchBarWidget(),
+            BannerWidget(),
             const SizedBox(height: 24),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               onCategorySelected: _onCategorySelected,
             ),
             const SizedBox(height: 20),
-            const ProductGridWidget(),
+            ProductGridWidget(),
             const SizedBox(height: 80),
           ],
         ),
