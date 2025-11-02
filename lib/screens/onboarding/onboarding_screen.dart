@@ -19,7 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       'title_sub': 'for eye',
       'subtitle': 'You\'re at the right place!',
     },
-    {
+     {
       'image': 'assets/images/onboarding.png',
       'title_main': 'Glass',
       'title_sub': 'for eye',
@@ -39,77 +39,82 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
+  // Navigasi ke Login
+  void _goToLogin() {
+    if (mounted) {
+      Navigator.of(context).pushReplacementNamed('/login');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // PageView: Gambar Full Layar
+          // PageView dengan gambar
           PageView.builder(
             controller: _pageController,
-            onPageChanged: (value) => setState(() => _currentPage = value),
             itemCount: _pages.length,
+            onPageChanged: (index) => setState(() => _currentPage = index),
             itemBuilder: (context, index) => _buildPage(_pages[index]),
           ),
 
-          // Overlay: Teks + Tombol + Dots (di bawah gambar, tanpa vignette gradient)
+          // Konten bawah
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(40, 160, 40, 40), // Sesuaikan padding top untuk posisi lebih bawah
+              padding: const EdgeInsets.fromLTRB(40, 160, 40, 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title Main (besar)
                   Text(
-                    _pages[_currentPage]['title_main'] ?? 'Glass', // Use ?? to avoid null check error if key missing
+                    _pages[_currentPage]['title_main'] ?? '',
                     style: const TextStyle(
                       fontFamily: 'TomatoGrotesk',
-                      fontSize: 80, // Ukuran lebih besar untuk "Glass" sesuai desain
+                      fontSize: 80,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                       height: 1.0,
                     ),
                   ),
-                  // Title Sub (kecil di bawah)
                   Text(
-                    _pages[_currentPage]['title_sub'] ?? 'for eye', // Use ?? to avoid null check error if key missing
+                    _pages[_currentPage]['title_sub'] ?? '',
                     style: const TextStyle(
                       fontFamily: 'TomatoGrotesk',
-                      fontSize: 50, // Ukuran lebih kecil untuk "for eye" sesuai desain
+                      fontSize: 50,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                       height: 1.0,
                     ),
                   ),
                   const SizedBox(height: 12),
-
-                  // Subtitle
                   Text(
-                    _pages[_currentPage]['subtitle'] ?? 'You\'re at the right place!', // Use ?? to avoid null check error if key missing
+                    _pages[_currentPage]['subtitle'] ?? '',
                     style: const TextStyle(
                       fontFamily: 'TomatoGrotesk',
-                      fontSize: 20, // Ukuran disesuaikan lebih kecil sesuai desain
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                      color: Colors.black54,
                     ),
                   ),
                   const SizedBox(height: 24),
 
-                  // Divider + Dots (garis slide di tengah, seperti dashes)
+                  // Dots indikator
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                       _pages.length,
-                      (i) => Container(
-                        margin: const EdgeInsets.only(right: 12),
+                      (i) => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.only(right: 8),
                         width: i == _currentPage ? 30 : 10,
-                        height: 2,
+                        height: 3,
                         decoration: BoxDecoration(
-                          color: i == _currentPage ? Colors.black : Colors.black38,
+                          color: i == _currentPage
+                              ? Colors.black
+                              : Colors.black26,
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -117,24 +122,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   const SizedBox(height: 32),
 
-                  // Tombol Get Started + Panah di LUAR
+                  // Get Started + Panah
                   Row(
                     children: [
-                      // Tombol Get Started
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/login');
-                          },
+                          onPressed: _goToLogin,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            elevation: 10,
-                            shadowColor: Colors.black45,
                           ),
                           child: const Text(
                             'Get Started',
@@ -148,22 +148,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       const SizedBox(width: 16),
 
-                      // Panah di LUAR Tombol (bulatan orange pudar / cream disesuaikan lebih akurat)
+                      // Panah next
                       GestureDetector(
                         onTap: () {
-                          if (_currentPage < _pages.length - 1) {
+                          final currentPage =
+                              _pageController.page?.round() ?? 0;
+                          if (currentPage < _pages.length - 1) {
                             _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.ease,
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
                             );
                           } else {
-                            Navigator.pushReplacementNamed(context, '/login');
+                            _goToLogin();
                           }
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(14),
                           decoration: const BoxDecoration(
-                            color: Color(0xFFFDD096), // Warna cream/orange pudar lebih sesuai desain
+                            color: Color(0xFFFDD096),
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
@@ -173,7 +175,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ),
                             ],
                           ),
-                          child: const Icon(Icons.arrow_forward, size: 24, color: Colors.black),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.black,
+                            size: 26,
+                          ),
                         ),
                       ),
                     ],
@@ -193,7 +199,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade900),
+      errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade200),
     );
   }
 }

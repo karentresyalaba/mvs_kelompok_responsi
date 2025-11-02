@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'reset_password_screen.dart'; // pastikan file ini ada dan benar namanya
 
 class VerifyCodeScreen extends StatefulWidget {
   const VerifyCodeScreen({super.key});
@@ -12,7 +13,12 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   void _verifyCode() {
     // langsung pindah tanpa validasi
-    Navigator.pushReplacementNamed(context, '/reset');
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ResetPasswordScreen(),
+      ),
+    );
   }
 
   @override
@@ -96,7 +102,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                   TextButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Verification code resent!')),
+                        const SnackBar(
+                          content: Text('Verification code resent!'),
+                        ),
                       );
                     },
                     child: const Text(
@@ -152,7 +160,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                             alignment: PlaceholderAlignment.middle,
                             child: GestureDetector(
                               onTap: () => Navigator.popUntil(
-                                  context, ModalRoute.withName('/login')),
+                                context,
+                                ModalRoute.withName('/login'),
+                              ),
                               child: const Text(
                                 'Sign In',
                                 style: TextStyle(
@@ -176,7 +186,10 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             top: 40,
             left: 16,
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
               onPressed: () => Navigator.pop(context),
             ),
           ),

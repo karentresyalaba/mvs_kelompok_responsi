@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'verify_code_screen.dart'; // pastikan file ini ada di folder yang sama
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -9,7 +10,6 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _emailController = TextEditingController();
-
   static const Color creamColor = Color(0xFFFFD794);
 
   @override
@@ -46,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 32, 24, 16), // padding bawah dikurangi
+                padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
                 child: Column(
                   children: [
                     Expanded(
@@ -79,8 +79,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             // === EMAIL LABEL + FIELD ===
                             _buildLabel('Email Address', isRequired: true),
                             const SizedBox(height: 8),
-                            _buildTextField(_emailController,
-                                hint: ''),
+                            _buildTextField(
+                              _emailController,
+                              hint: 'example@email.com',
+                            ),
                             const SizedBox(height: 25),
                           ],
                         ),
@@ -93,7 +95,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       height: 54,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/verify');
+                          // langsung navigasi tanpa validasi
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VerifyCodeScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: creamColor,
@@ -114,14 +122,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 10), // jarak tombol dan teks back to diperkecil
+                    const SizedBox(height: 10),
 
                     // === BACK TO SIGN IN ===
                     Center(
                       child: TextButton(
                         onPressed: () => Navigator.pop(context),
                         style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero, // biar tidak terlalu lebar
+                          padding: EdgeInsets.zero,
                           minimumSize: Size.zero,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
@@ -207,7 +215,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey.shade400, fontFamily: 'TomatoGrotesk'),
+        hintStyle: TextStyle(
+          color: Colors.grey.shade400,
+          fontFamily: 'TomatoGrotesk',
+        ),
         filled: true,
         fillColor: Colors.grey.shade50,
         border: OutlineInputBorder(

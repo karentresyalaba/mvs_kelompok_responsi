@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
+import '../../screens/splash/splash_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          // HEADER — WARNA OTOMATIS
+          // HEADER
           UserAccountsDrawerHeader(
             accountName: Text(
               'Roopa',
@@ -43,7 +44,7 @@ class AppDrawer extends StatelessWidget {
           // MENU ITEMS
           Expanded(
             child: ListView(
-              padding: EdgeInsets.zero, // FIXED: HAPUS "EdgeColor:"
+              padding: EdgeInsets.zero,
               children: [
                 _buildMenuItem(context, Icons.home_outlined, 'Home', () {}),
                 _buildMenuItem(context, Icons.category_outlined, 'Products', () {}),
@@ -55,7 +56,33 @@ class AppDrawer extends StatelessWidget {
                 _buildMenuItem(context, Icons.shopping_cart_outlined, 'My Cart', () {}),
                 _buildMenuItem(context, Icons.person_outline, 'Profile', () {}),
                 _buildMenuItem(context, Icons.chat_bubble_outline, 'Chat List', () {}),
-                _buildMenuItem(context, Icons.logout, 'Logout', () {}),
+
+                // 🔥 LOGOUT — FIXED VERSION
+                ListTile(
+                  leading: const Icon(Icons.logout, color: Color(0xFFFFA726)),
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(
+                      fontFamily: 'TomatoGrotesk',
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    // Tutup drawer dulu
+                    Navigator.of(context).pop();
+
+                    // Delay sedikit biar drawer sempat nutup
+                    await Future.delayed(const Duration(milliseconds: 250));
+
+                    // Navigasi ke SplashScreen dan hapus semua route sebelumnya
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SplashScreen()),
+                      (route) => false,
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -84,7 +111,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
 
-          // FOOTER — WARNA OTOMATIS
+          // FOOTER
           Container(
             padding: const EdgeInsets.all(16),
             color: isDark ? Colors.grey[800] : Colors.grey[100],
@@ -115,7 +142,8 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, IconData icon, String title, VoidCallback onTap) {
+  Widget _buildMenuItem(
+      BuildContext context, IconData icon, String title, VoidCallback onTap) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return ListTile(
@@ -128,8 +156,9 @@ class AppDrawer extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {
+      onTap: () async {
         Navigator.pop(context);
+        await Future.delayed(const Duration(milliseconds: 150));
         onTap();
       },
     );

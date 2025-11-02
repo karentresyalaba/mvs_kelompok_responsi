@@ -21,7 +21,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   void _goToLogin() {
-    // langsung menuju halaman login
     Navigator.pushNamed(context, '/login');
   }
 
@@ -32,7 +31,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image (top)
           SizedBox(
             height: screenHeight * 0.4,
             width: double.infinity,
@@ -41,115 +39,113 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               fit: BoxFit.cover,
             ),
           ),
-
-          // White card (bottom)
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(
-              height: screenHeight * 0.7,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-              ),
-              padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Enter New Password',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'TomatoGrotesk',
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Your new password must be different from previously used password.',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: 'TomatoGrotesk',
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Password Field
-                  _buildLabel('Password'),
-                  _buildTextField(_passwordController, isPassword: true),
-                  const SizedBox(height: 16),
-
-                  // Confirm Password Field
-                  _buildLabel('Confirm Password'),
-                  _buildTextField(_confirmController, isPassword: true),
-
-                  const Spacer(),
-
-                  // Continue Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _goToLogin,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: creamColor,
-                        foregroundColor: Colors.black,
-                        elevation: 0,
-                        shape: const StadiumBorder(),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                      ),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontFamily: 'TomatoGrotesk',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
+            child: SafeArea(
+              top: false,
+              child: Container(
+                height: screenHeight * 0.7,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                ),
+                padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Enter New Password',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'TomatoGrotesk',
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-
-                  // Back To Sign In
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        style: const TextStyle(
-                          fontFamily: 'TomatoGrotesk',
-                          fontSize: 15,
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Your new password must be different from previously used password.',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontFamily: 'TomatoGrotesk',
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    _buildLabel('Password'),
+                    _buildTextField(_passwordController, isPassword: true),
+                    const SizedBox(height: 16),
+                    _buildLabel('Confirm Password'),
+                    _buildTextField(_confirmController, isPassword: true),
+                    const Spacer(), // mendorong tombol dan teks ke bawah
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _goToLogin,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: creamColor,
+                          foregroundColor: Colors.black,
+                          shape: const StadiumBorder(),
+                          elevation: 0,
+                          padding:
+                              const EdgeInsets.symmetric(vertical: 16),
                         ),
-                        children: [
-                          const TextSpan(
-                            text: 'Back To ',
-                            style: TextStyle(color: Colors.black87),
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                            fontFamily: 'TomatoGrotesk',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
                           ),
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: GestureDetector(
-                              onTap: () => Navigator.pushNamed(context, '/login'),
-                              child: const Text(
-                                'Sign In',
-                                style: TextStyle(
-                                  color: creamColor,
-                                  fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10), // jarak kecil antara tombol & teks
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontFamily: 'TomatoGrotesk',
+                            fontSize: 15,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: 'Back To ',
+                              style: TextStyle(color: Colors.black87),
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: GestureDetector(
+                                onTap: () => Navigator.popUntil(
+                                  context,
+                                  ModalRoute.withName('/login'),
+                                ),
+                                child: const Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    color: creamColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 0.3), // sedikit jarak ke bawah
+                  ],
+                ),
               ),
             ),
           ),
-
-          // Back Arrow
           Positioned(
             top: 40,
             left: 16,
             child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+              ),
               onPressed: () => Navigator.pop(context),
             ),
           ),
@@ -158,7 +154,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  /// Label custom dengan tanda * merah
   Widget _buildLabel(String text) {
     return RichText(
       text: TextSpan(
@@ -179,7 +174,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  /// TextField kosong tanpa label dalam box
   Widget _buildTextField(
     TextEditingController controller, {
     bool isPassword = false,
@@ -194,7 +188,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       ),
     );
   }
