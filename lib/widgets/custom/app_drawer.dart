@@ -8,6 +8,8 @@ import '../../screens/components/components_page.dart';
 import '../../screens/pages/pages_page.dart';
 import '../../screens/profile/profile_page.dart';
 import '../../screens/chat/chat_list_page.dart';
+import '../../screens/wishlist/wishlist_page.dart';
+import '../../screens/cart/cart_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -119,20 +121,22 @@ class AppDrawer extends StatelessWidget {
                   context,
                   Icons.favorite_border,
                   'Wishlist',
-                  () => _showComingSoon(context, 'Wishlist'),
-                ),
-                _buildMenuItem(
+                  () {
+                  Navigator.push(
                   context,
-                  Icons.receipt_long_outlined,
-                  'Orders',
-                  () => _showComingSoon(context, 'Orders'),
+                  MaterialPageRoute(
+                  builder: (context) => const WishlistPage(),
                 ),
                 _buildMenuItem(
                   context,
                   Icons.shopping_cart_outlined,
                   'My Cart',
-                  () => _showComingSoon(context, 'My Cart'),
-                ),
+                  () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => const CartPage(),
+                  ),
                 _buildMenuItem(
                   context,
                   Icons.person_outline,

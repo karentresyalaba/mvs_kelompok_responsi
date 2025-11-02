@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'providers/keranjang_provider.dart';
 import 'providers/theme_provider.dart';
 
+
+import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';
+
 // Screens
 import 'screens/category/category_screen.dart';
 import 'screens/load/load_screen.dart';
@@ -14,6 +18,17 @@ import 'screens/auth/login_screen.dart';
 import 'screens/auth/register_screen.dart';
 import 'screens/auth/forgot_password_screen.dart';
 import 'screens/splash/splash_screen.dart';
+import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
+import 'screens/cart/cart_page.dart';
 
 void main() {
   runApp(
@@ -50,6 +65,9 @@ class MyApp extends StatelessWidget {
         '/forgot': (context) => const ForgotPasswordScreen(),
         '/home': (context) => const HomePage(),
         '/category': (context) => const CategoryScreen(),
+        // Tambahin di bagian routes di main.dart kelompok
+        '/wishlist': (context) => const WishlistPage(),
+        '/cart': (context) => const CartPage(),
       },
     );
   }
