@@ -41,7 +41,15 @@ class CustomBottomNav extends StatelessWidget {
               ),
               label: 'Home',
             ),
+            
+            // 🟢 Tambahan tombol CATEGORY
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.category_outlined),
+              label: 'Category',
+            ),
+
             const BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Whishlist'),
+
             BottomNavigationBarItem(
               icon: Stack(
                 children: [

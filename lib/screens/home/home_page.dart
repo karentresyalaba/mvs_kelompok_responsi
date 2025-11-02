@@ -13,7 +13,8 @@ import '../../widgets/custom/custom_bottom_nav.dart'; // FIXED PATH
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-  @override State<HomePage> createState() => _HomePageState();
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -48,7 +49,15 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: CustomBottomNav(
         currentIndex: _selectedIndex,
-        onTap: (index) => setState(() => _selectedIndex = index),
+        // ✅ Tambahkan navigasi ke halaman Category tanpa ubah kode lama
+        onTap: (index) {
+          setState(() => _selectedIndex = index);
+
+          // Navigasi ke halaman kategori
+          if (index == 1) {
+            Navigator.pushNamed(context, '/category');
+          }
+        },
       ),
     );
   }
@@ -57,7 +66,9 @@ class _HomePageState extends State<HomePage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (_) => DraggableScrollableSheet(
         expand: false,
         initialChildSize: 0.8,
@@ -81,10 +92,18 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => Scaffold.of(context).openDrawer(),
         ),
       ),
-      title: Image.asset('assets/images/logo-dark.png', width: 40, height: 40, fit: BoxFit.contain),
+      title: Image.asset(
+        'assets/images/logo-dark.png',
+        width: 40,
+        height: 40,
+        fit: BoxFit.contain,
+      ),
       centerTitle: true,
       actions: [
-        IconButton(icon: const Icon(Icons.notifications_outlined, color: Colors.black), onPressed: () {}),
+        IconButton(
+          icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+          onPressed: () {},
+        ),
       ],
     );
   }

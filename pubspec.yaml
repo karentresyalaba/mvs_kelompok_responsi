@@ -11,8 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.1.1
   cupertino_icons: ^1.0.2
+  provider: ^6.1.1
+  badges: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -49,7 +50,19 @@ flutter:
     - assets/images/product8.png
     - assets/images/product9.png
 
+    - assets/images/category/category1.png
+    - assets/images/category/category2.png
+    - assets/images/category/category3.png
     
+
+    - assets/images/products1/products1.png
+    - assets/images/products1/products2.png
+    - assets/images/products1/products3.png
+    - assets/images/products1/products4.png
+    - assets/images/products1/products5.png
+    - assets/images/products1/products6.png
+    
+
   fonts:
     - family: TomatoGrotesk
       fonts:
@@ -95,4 +108,3 @@ flutter:
         - asset: assets/fonts/TomatoGrotesk-BlackSlanted.otf
           weight: 900
           style: italic
-

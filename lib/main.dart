@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+// Provider
+import 'providers/keranjang_provider.dart';
 import 'providers/theme_provider.dart';
 
+// Screens
+import 'screens/category/category_screen.dart';
 import 'screens/load/load_screen.dart';
 import 'screens/home/home_page.dart';
 import 'screens/onboarding/onboarding_screen.dart';
@@ -12,8 +17,11 @@ import 'screens/splash/splash_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => KeranjangProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -32,7 +40,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeProvider.lightTheme,
       darkTheme: ThemeProvider.darkTheme,
       themeMode: themeProvider.themeMode,
-      home: const LoadScreen(), // <-- ganti dari HomePage
+      // halaman awal aplikasi
+      home: const LoadScreen(),
       routes: {
         '/splash': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
@@ -40,6 +49,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/forgot': (context) => const ForgotPasswordScreen(),
         '/home': (context) => const HomePage(),
+        '/category': (context) => const CategoryScreen(),
       },
     );
   }
