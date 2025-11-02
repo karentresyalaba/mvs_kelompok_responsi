@@ -3,9 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
 import '../../screens/splash/splash_screen.dart';
+import '../../screens/home/home_page.dart';
+import '../../screens/components/components_page.dart';
+import '../../screens/pages/pages_page.dart';
+import '../../screens/profile/profile_page.dart';
+import '../../screens/chat/chat_list_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
+
+  void _showComingSoon(BuildContext context, String feature) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '$feature - Coming Soon!',
+          style: const TextStyle(fontFamily: 'TomatoGrotesk'),
+        ),
+        backgroundColor: const Color(0xFFFFA726),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +64,103 @@ class AppDrawer extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                _buildMenuItem(context, Icons.home_outlined, 'Home', () {}),
-                _buildMenuItem(context, Icons.category_outlined, 'Products', () {}),
-                _buildMenuItem(context, Icons.widgets_outlined, 'Components', () {}),
-                _buildMenuItem(context, Icons.diamond_outlined, 'Pages', () {}),
-                _buildMenuItem(context, Icons.star_outline, 'Featured', () {}),
-                _buildMenuItem(context, Icons.favorite_border, 'Wishlist', () {}),
-                _buildMenuItem(context, Icons.receipt_long_outlined, 'Orders', () {}),
-                _buildMenuItem(context, Icons.shopping_cart_outlined, 'My Cart', () {}),
-                _buildMenuItem(context, Icons.person_outline, 'Profile', () {}),
-                _buildMenuItem(context, Icons.chat_bubble_outline, 'Chat List', () {}),
+                _buildMenuItem(
+                  context,
+                  Icons.home_outlined,
+                  'Home',
+                  () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.category_outlined,
+                  'Products',
+                  () => _showComingSoon(context, 'Products'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.widgets_outlined,
+                  'Components',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ComponentsPage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.diamond_outlined,
+                  'Pages',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PagesPage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.star_outline,
+                  'Featured',
+                  () => _showComingSoon(context, 'Featured'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.favorite_border,
+                  'Wishlist',
+                  () => _showComingSoon(context, 'Wishlist'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.receipt_long_outlined,
+                  'Orders',
+                  () => _showComingSoon(context, 'Orders'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.shopping_cart_outlined,
+                  'My Cart',
+                  () => _showComingSoon(context, 'My Cart'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.person_outline,
+                  'Profile',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.chat_bubble_outline,
+                  'Chat List',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatListPage(),
+                      ),
+                    );
+                  },
+                ),
 
-                // 🔥 LOGOUT — FIXED VERSION
+                // 🔥 LOGOUT
                 ListTile(
                   leading: const Icon(Icons.logout, color: Color(0xFFFFA726)),
                   title: Text(
@@ -69,16 +172,13 @@ class AppDrawer extends StatelessWidget {
                   ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () async {
-                    // Tutup drawer dulu
                     Navigator.of(context).pop();
-
-                    // Delay sedikit biar drawer sempat nutup
                     await Future.delayed(const Duration(milliseconds: 250));
-
-                    // Navigasi ke SplashScreen dan hapus semua route sebelumnya
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => const SplashScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => const SplashScreen(),
+                      ),
                       (route) => false,
                     );
                   },
