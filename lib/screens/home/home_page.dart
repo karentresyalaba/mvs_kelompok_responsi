@@ -1,18 +1,22 @@
 // lib/screens/home/home_page.dart
 import 'package:flutter/material.dart';
 
-import 'widgets/custom_search_bar.dart';  // RENAMED
+// Widgets untuk halaman Home
+import 'widgets/custom_search_bar.dart';
 import 'widgets/banner_section.dart';
 import 'widgets/section_title.dart';
 import 'widgets/category_chips.dart';
 import 'widgets/product_grid.dart';
-import 'widgets/filter_content.dart'; // jika masih pakai
+import 'widgets/filter_content.dart';
 
-import '../../widgets/custom/app_drawer.dart';        // FIXED PATH
-import '../../widgets/custom/custom_bottom_nav.dart'; // FIXED PATH
+// Komponen global
+import '../../widgets/custom/app_drawer.dart';
+import '../../widgets/custom/custom_bottom_nav.dart';
+import '../../screens/notifications/notifications_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -26,12 +30,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      drawer: const AppDrawer(), // const OK karena widgetnya Stateless
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomSearchBar(onFilterPressed: _showFilter), // FIXED
+            CustomSearchBar(onFilterPressed: _showFilter),
             const BannerSection(),
             const SizedBox(height: 24),
             const SectionTitle("Let's Get Started!"),
@@ -43,17 +47,16 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             const ProductGrid(),
-            const SizedBox(height: 100),
+            const SizedBox(height: 20),
           ],
         ),
       ),
       bottomNavigationBar: CustomBottomNav(
         currentIndex: _selectedIndex,
-        // ✅ Tambahkan navigasi ke halaman Category tanpa ubah kode lama
         onTap: (index) {
           setState(() => _selectedIndex = index);
 
-          // Navigasi ke halaman kategori
+          // Navigasi contoh dari BottomNav
           if (index == 1) {
             Navigator.pushNamed(context, '/category');
           }
@@ -62,6 +65,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // =========================
+  // MODAL FILTER PRODUK
+  // =========================
   void _showFilter() {
     showModalBottomSheet(
       context: context,
@@ -82,6 +88,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // =========================
+  // APPBAR UTAMA
+  // =========================
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.white,
@@ -102,7 +111,12 @@ class _HomePageState extends State<HomePage> {
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_outlined, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NotificationsPage()),
+            );
+          },
         ),
       ],
     );
