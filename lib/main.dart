@@ -31,6 +31,8 @@ import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart
 import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
 import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
 import 'screens/cart/cart_page.dart';
+import 'screens/orders/orders_page.dart';
+import 'screens/profile/profile_page.dart';
 
 
 void main() {
@@ -71,6 +73,10 @@ class MyApp extends StatelessWidget {
         // Tambahin di bagian routes di main.dart kelompok
         '/wishlist': (context) => const WishlistPage(),
         '/cart': (context) => const CartPage(),
+        '/orders': (context) => const OrdersPage(),
+        '/profile': (context) => const ProfilePage(),
+
+
 
 
 

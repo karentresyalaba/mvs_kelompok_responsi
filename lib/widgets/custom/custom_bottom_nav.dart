@@ -1,5 +1,9 @@
-// lib/widgets/custom/custom_bottom_nav.dart
 import 'package:flutter/material.dart';
+import '../../screens/home/home_page.dart';
+import '../../screens/wishlist/wishlist_page.dart';
+import '../../screens/cart/cart_page.dart';
+import '../../screens/orders/orders_page.dart';
+import '../../screens/profile/profile_page.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -23,33 +27,61 @@ class CustomBottomNav extends StatelessWidget {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         child: BottomNavigationBar(
           currentIndex: currentIndex,
-          onTap: onTap,
+          onTap: (index) {
+            onTap(index); // tetap jalankan callback lama
+
+            // 🔹 Navigasi antar halaman
+            switch (index) {
+              case 0:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HomePage()),
+                );
+                break;
+              case 1:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const WishlistPage()),
+                );
+                break;
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CartPage()),
+                );
+                break;
+              case 3:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const OrdersPage()),
+                );
+                break;
+              case 4:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                );
+                break;
+              default:
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Menu index $index belum diimplementasikan')),
+                );
+            }
+          },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: const Color(0xFFFFA726),
           unselectedItemColor: Colors.grey,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: [
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: currentIndex == 0 ? const Color(0xFFFFE0B2) : Colors.transparent,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.home),
-              ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
               label: 'Home',
             ),
-            
-            // 🟢 Tambahan tombol CATEGORY
             const BottomNavigationBarItem(
-              icon: Icon(Icons.category_outlined),
-              label: 'Category',
+              icon: Icon(Icons.favorite_border),
+              label: 'Wishlist',
             ),
-
-            const BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Whishlist'),
-
             BottomNavigationBarItem(
               icon: Stack(
                 children: [
@@ -59,11 +91,18 @@ class CustomBottomNav extends StatelessWidget {
                     top: 0,
                     child: Container(
                       padding: const EdgeInsets.all(2),
-                      decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
                       constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-                      child: Text(
+                      child: const Text(
                         '14',
-                        style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -72,8 +111,14 @@ class CustomBottomNav extends StatelessWidget {
               ),
               label: 'Cart',
             ),
-            const BottomNavigationBarItem(icon: Icon(Icons.receipt_outlined), label: 'Orders'),
-            const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_outlined),
+              label: 'Orders',
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: 'Profile',
+            ),
           ],
         ),
       ),

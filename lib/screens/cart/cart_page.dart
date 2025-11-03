@@ -92,6 +92,7 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
+        centerTitle: false,
         titleSpacing: 16,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,29 +101,61 @@ class _CartPageState extends State<CartPage> {
               'My Cart',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'TomatoGrotesk',
               ),
             ),
+            const SizedBox(height: 2),
             RichText(
               text: TextSpan(
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: Colors.black87,
                   fontFamily: 'TomatoGrotesk',
                 ),
                 children: [
                   TextSpan(
-                    text: '${cartItems.length} Items',
-                    style: const TextStyle(color: Colors.red),
+                    children: [
+                      TextSpan(
+                        text: '8 ',
+                        style: TextStyle(
+                          color: Colors.red.shade700, // angka tetap merah
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Items',
+                        style: TextStyle(
+                          color: Colors.black, // kata "Items" jadi hitam
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  const TextSpan(text: ' • Deliver To: '),
-                  const TextSpan(
+                  const WidgetSpan(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: Icon(
+                        Icons.diamond, // ganti jadi diamond
+                        size: 13, // sedikit lebih besar biar jelas
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+
+
+
+
+
+
+
+                  const TextSpan(text: 'Deliver To: '),
+                  TextSpan(
                     text: 'London',
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Colors.red.shade700,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -131,45 +164,44 @@ class _CartPageState extends State<CartPage> {
             ),
           ],
         ),
-        centerTitle: false,
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.location_on_outlined,
-              color: Colors.black,
-              size: 24,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AddDeliveryAddressPage(),
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: TextButton.icon(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.grey.shade100,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              );
-            },
-          ),
-          const SizedBox(width: 4),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AddDeliveryAddressPage(),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddDeliveryAddressPage(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.location_on_outlined,
+                color: Colors.black87,
+                size: 18,
+              ),
+              label: const Text(
+                'Change',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'TomatoGrotesk',
                 ),
-              );
-            },
-            child: const Text(
-              'Change',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'TomatoGrotesk',
               ),
             ),
           ),
         ],
       ),
+
       body: cartItems.isEmpty
           ? Center(
         child: Column(
