@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.1.1
   badges: ^3.1.2
+  image_picker: ^1.1.1 
 
 dev_dependencies:
   flutter_test:
@@ -54,14 +55,18 @@ flutter:
     - assets/images/category/category2.png
     - assets/images/category/category3.png
     
-
     - assets/images/products1/products1.png
     - assets/images/products1/products2.png
     - assets/images/products1/products3.png
     - assets/images/products1/products4.png
     - assets/images/products1/products5.png
     - assets/images/products1/products6.png
-    
+
+    - assets/images/flag/india.png
+    - assets/images/flag/united_states.png
+    - assets/images/flag/germany.png
+    - assets/images/flag/spain.png
+    - assets/images/flag/italy.png
 
   fonts:
     - family: TomatoGrotesk

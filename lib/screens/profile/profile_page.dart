@@ -4,17 +4,24 @@ import '../wishlist/wishlist_page.dart';
 import '../profile/edit_profile_page.dart';
 import '../profile/saved_cards_page.dart';
 import '../profile/saved_addresses_page.dart';
-import '../profile/select_language_page.dart';
 import '../notifications/notifications_page.dart';
 import '../profile/reviews_page.dart';
 import '../profile/questions_page.dart';
 import '../profile/coupons_page.dart';
 import '../profile/track_order_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
-  // Fungsi navigasi ke setiap halaman
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String selectedLang = 'English';
+  String selectedFlag = 'assets/images/flag/united_states.png';
+
+  // Fungsi navigasi ke setiap halaman (selain Select Language)
   void _navigateTo(BuildContext context, String feature) {
     Widget? page;
 
@@ -40,9 +47,6 @@ class ProfilePage extends StatelessWidget {
       case 'Saved Addresses':
         page = const SavedAddressesPage();
         break;
-      case 'Select Language':
-        page = const SelectLanguagePage();
-        break;
       case 'Notifications Settings':
         page = const NotificationsPage();
         break;
@@ -64,6 +68,62 @@ class ProfilePage extends StatelessWidget {
         SnackBar(content: Text("Menu belum tersedia: $feature")),
       );
     }
+  }
+
+  // === Bottom Sheet untuk pilih bahasa ===
+  void _showLanguageSelector(BuildContext context) {
+    final languages = [
+      {'name': 'Hindi', 'flag': 'assets/images/flag/india.png'},
+      {'name': 'English', 'flag': 'assets/images/flag/united_states.png'},
+      {'name': 'German', 'flag': 'assets/images/flag/germany.png'},
+      {'name': 'Italian', 'flag': 'assets/images/flag/italy.png'},
+      {'name': 'Spanish', 'flag': 'assets/images/flag/spain.png'},
+    ];
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (_) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(12),
+                child: Text(
+                  'Language',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(height: 1),
+              ...languages.map((lang) {
+                return ListTile(
+                  leading: Image.asset(lang['flag']!, width: 32, height: 32),
+                  title: Text(
+                    lang['name']!,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedLang = lang['name']!;
+                      selectedFlag = lang['flag']!;
+                    });
+                    Navigator.pop(context);
+                  },
+                );
+              }),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -146,7 +206,37 @@ class ProfilePage extends StatelessWidget {
             _buildSettingsTile(context, Icons.person_outline, 'Edit Profile'),
             _buildSettingsTile(context, Icons.credit_card, 'Saved Cards & Wallet'),
             _buildSettingsTile(context, Icons.location_on_outlined, 'Saved Addresses'),
-            _buildSettingsTile(context, Icons.language, 'Select Language'),
+
+            // --- SELECT LANGUAGE CUSTOM TILE ---
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.orange.shade50,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.language, color: Colors.orange, size: 20),
+              ),
+              title: Row(
+                children: [
+                  Image.asset(selectedFlag, width: 28, height: 28),
+                  const SizedBox(width: 10),
+                  Text(
+                    selectedLang,
+                    style: const TextStyle(
+                      fontFamily: 'TomatoGrotesk',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+              onTap: () => _showLanguageSelector(context),
+            ),
+
             _buildSettingsTile(context, Icons.notifications_outlined, 'Notifications Settings'),
 
             const SizedBox(height: 20),

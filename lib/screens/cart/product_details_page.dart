@@ -1,4 +1,3 @@
-// lib/screens/cart/product_details_page.dart
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
 import 'delivery_address_page.dart';
@@ -17,6 +16,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int selectedColorIndex = 0;
   int quantity = 1;
   final List<String> colors = ['🔵', '⚫', '🟣'];
+
+  final List<String> imageList = [
+    'assets/images/product9.png',
+    'assets/images/product5.png',
+    'assets/images/product1.png',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +45,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Stack(
             children: [
               IconButton(
-                icon: const Icon(Icons.shopping_cart_outlined,
-                    color: Colors.black),
+                icon:
+                    const Icon(Icons.shopping_cart_outlined, color: Colors.black),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -86,17 +91,56 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  // 🟠 Gambar Produk (Carousel)
+                  SizedBox(
                     height: 300,
-                    color: Colors.grey[50],
-                    child: Center(
-                      child: Text(
-                        colors[selectedColorIndex],
-                        style: const TextStyle(fontSize: 150),
-                      ),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        PageView.builder(
+                          itemCount: imageList.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              selectedColorIndex = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              imageList[index],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            );
+                          },
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(imageList.length, (index) {
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width:
+                                    selectedColorIndex == index ? 12 : 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: selectedColorIndex == index
+                                      ? Colors.orange
+                                      : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+
                   const SizedBox(height: 16),
+
+                  // 🟢 Pilihan Warna (Emoji)
                   SizedBox(
                     height: 80,
                     child: ListView.builder(
@@ -134,12 +178,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       },
                     ),
                   ),
+
                   const SizedBox(height: 16),
+
+                  // 🔵 Detail Produk
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Judul & Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -169,7 +217,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 8),
+
+                        // Nama Produk
                         Text(
                           widget.product.title,
                           style: const TextStyle(
@@ -178,7 +229,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             fontFamily: 'TomatoGrotesk',
                           ),
                         ),
+
                         const SizedBox(height: 24),
+
+                        // Harga & Quantity
                         Row(
                           children: [
                             Expanded(
@@ -212,7 +266,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           fontSize: 18,
                                           color: Colors.grey,
                                           decoration:
-                                          TextDecoration.lineThrough,
+                                              TextDecoration.lineThrough,
                                           fontFamily: 'TomatoGrotesk',
                                         ),
                                       ),
@@ -221,6 +275,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 ],
                               ),
                             ),
+
+                            // Quantity Picker
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -284,6 +340,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
             ),
           ),
+
+          // 🛒 Tombol Add to Cart
           Container(
             padding: const EdgeInsets.all(16),
             child: SizedBox(
