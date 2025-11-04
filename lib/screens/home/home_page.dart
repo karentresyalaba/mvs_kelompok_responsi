@@ -1,12 +1,17 @@
 // lib/screens/home/home_page.dart
 import 'package:flutter/material.dart';
 
+<<<<<<< HEAD
 // Widgets untuk halaman Home
 import 'widgets/custom_search_bar.dart';
+=======
+import 'widgets/custom_search_bar.dart';  // RENAMED
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 import 'widgets/banner_section.dart';
 import 'widgets/section_title.dart';
 import 'widgets/category_chips.dart';
 import 'widgets/product_grid.dart';
+<<<<<<< HEAD
 import 'widgets/filter_content.dart';
 
 // Komponen global
@@ -17,11 +22,24 @@ import '../../screens/notifications/notifications_page.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+=======
+import 'widgets/filter_content.dart'; // jika masih pakai
+
+import '../../widgets/custom/app_drawer.dart';        // FIXED PATH
+import '../../widgets/custom/custom_bottom_nav.dart'; // FIXED PATH
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+<<<<<<< HEAD
+=======
+  int _selectedIndex = 0;
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   String _selectedCategory = 'All';
   final List<String> categories = ['All', 'Child', 'Men', 'Women', 'Dress', 'Unisex'];
 
@@ -29,12 +47,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
+<<<<<<< HEAD
       drawer: const AppDrawer(),
+=======
+      drawer: const AppDrawer(), // const OK karena widgetnya Stateless
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+<<<<<<< HEAD
             CustomSearchBar(onFilterPressed: _showFilter),
+=======
+            CustomSearchBar(onFilterPressed: _showFilter), // FIXED
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             const BannerSection(),
             const SizedBox(height: 24),
             const SectionTitle("Let's Get Started!"),
@@ -46,6 +72,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             const ProductGrid(),
+<<<<<<< HEAD
             const SizedBox(height: 20),
           ],
         ),
@@ -53,13 +80,33 @@ class _HomePageState extends State<HomePage> {
       // Gunakan CustomBottomNav dengan currentIndex 0 untuk Home
       bottomNavigationBar: const CustomBottomNav(
         currentIndex: 0, // Index 0: Home
+=======
+            const SizedBox(height: 100),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomBottomNav(
+        currentIndex: _selectedIndex,
+        // ✅ Tambahkan navigasi ke halaman Category tanpa ubah kode lama
+        onTap: (index) {
+          setState(() => _selectedIndex = index);
+
+          // Navigasi ke halaman kategori
+          if (index == 1) {
+            Navigator.pushNamed(context, '/category');
+          }
+        },
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
       ),
     );
   }
 
+<<<<<<< HEAD
   // =========================
   // MODAL FILTER PRODUK
   // =========================
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   void _showFilter() {
     showModalBottomSheet(
       context: context,
@@ -80,9 +127,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+<<<<<<< HEAD
   // =========================
   // APPBAR UTAMA
   // =========================
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       backgroundColor: Colors.white,
@@ -103,14 +153,22 @@ class _HomePageState extends State<HomePage> {
       actions: [
         IconButton(
           icon: const Icon(Icons.notifications_outlined, color: Colors.black),
+<<<<<<< HEAD
           onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const NotificationsPage()),
             );
           },
+=======
+          onPressed: () {},
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
         ),
       ],
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336

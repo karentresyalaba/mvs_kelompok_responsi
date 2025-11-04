@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // lib/screens/cart/product_details_page.dart
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
 import 'delivery_address_page.dart';
@@ -18,6 +21,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   int quantity = 1;
   final List<String> colors = ['🔵', '⚫', '🟣'];
 
+<<<<<<< HEAD
+=======
+  final List<String> imageList = [
+    'assets/images/product9.png',
+    'assets/images/product5.png',
+    'assets/images/product1.png',
+  ];
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +52,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Stack(
             children: [
               IconButton(
+<<<<<<< HEAD
                 icon: const Icon(Icons.shopping_cart_outlined,
                     color: Colors.black),
+=======
+                icon:
+                    const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -86,6 +103,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+<<<<<<< HEAD
                   Container(
                     height: 300,
                     color: Colors.grey[50],
@@ -97,6 +115,58 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
+=======
+                  // 🟠 Gambar Produk (Carousel)
+                  SizedBox(
+                    height: 300,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        PageView.builder(
+                          itemCount: imageList.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              selectedColorIndex = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              imageList[index],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            );
+                          },
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(imageList.length, (index) {
+                              return AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width:
+                                    selectedColorIndex == index ? 12 : 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: selectedColorIndex == index
+                                      ? Colors.orange
+                                      : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // 🟢 Pilihan Warna (Emoji)
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   SizedBox(
                     height: 80,
                     child: ListView.builder(
@@ -134,12 +204,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       },
                     ),
                   ),
+<<<<<<< HEAD
                   const SizedBox(height: 16),
+=======
+
+                  const SizedBox(height: 16),
+
+                  // 🔵 Detail Produk
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+<<<<<<< HEAD
+=======
+                        // Judul & Rating
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -169,7 +250,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             ),
                           ],
                         ),
+<<<<<<< HEAD
                         const SizedBox(height: 8),
+=======
+
+                        const SizedBox(height: 8),
+
+                        // Nama Produk
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                         Text(
                           widget.product.title,
                           style: const TextStyle(
@@ -178,7 +266,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             fontFamily: 'TomatoGrotesk',
                           ),
                         ),
+<<<<<<< HEAD
                         const SizedBox(height: 24),
+=======
+
+                        const SizedBox(height: 24),
+
+                        // Harga & Quantity
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                         Row(
                           children: [
                             Expanded(
@@ -212,7 +307,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           fontSize: 18,
                                           color: Colors.grey,
                                           decoration:
+<<<<<<< HEAD
                                           TextDecoration.lineThrough,
+=======
+                                              TextDecoration.lineThrough,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                                           fontFamily: 'TomatoGrotesk',
                                         ),
                                       ),
@@ -221,6 +320,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 ],
                               ),
                             ),
+<<<<<<< HEAD
+=======
+
+                            // Quantity Picker
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -284,6 +388,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
             ),
           ),
+<<<<<<< HEAD
+=======
+
+          // 🛒 Tombol Add to Cart
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
           Container(
             padding: const EdgeInsets.all(16),
             child: SizedBox(
@@ -327,4 +436,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336

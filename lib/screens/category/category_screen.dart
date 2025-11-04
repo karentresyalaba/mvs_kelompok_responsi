@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import '../../providers/keranjang_provider.dart';
 import '../product/product_list_screen.dart';
 import '../../widgets/custom/custom_bottom_nav.dart';
+=======
+import 'package:badges/badges.dart' as badges;
+import '../../providers/keranjang_provider.dart';
+import '../product/product_list_screen.dart';
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -14,8 +20,11 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
     final List<Map<String, String>> mainCategories = [
       {'image': 'assets/images/category/category1.png', 'title': 'Child'},
       {'image': 'assets/images/category/category2.png', 'title': 'Men'},
@@ -32,6 +41,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     ];
 
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: isDark ? Colors.grey[900] : Colors.white,
       appBar: AppBar(
         backgroundColor: isDark ? Colors.grey[900] : Colors.white,
@@ -51,15 +61,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
               Icons.search,
               color: isDark ? Colors.white : Colors.black,
             ),
+=======
+      appBar: AppBar(
+        title: const Text('Category'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
+<<<<<<< HEAD
           child: Container(
             height: 1,
             color: isDark ? Colors.grey[800] : const Color(0xFFECECEC),
           ),
+=======
+          child: Container(height: 1, color: const Color(0xFFECECEC)),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
         ),
       ),
       body: SingleChildScrollView(
@@ -67,6 +88,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+<<<<<<< HEAD
             Text(
               'Set your wardrobe with our amazing selection!',
               style: TextStyle(
@@ -75,6 +97,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 fontWeight: FontWeight.w700,
                 color: isDark ? Colors.white : Colors.black,
               ),
+=======
+            const Text(
+              'Set your wardrobe with our amazing selection!',
+              style: TextStyle(fontFamily: 'TomatoGrotesk', fontSize: 18, fontWeight: FontWeight.w700),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             ),
             const SizedBox(height: 20),
 
@@ -101,6 +128,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
             const SizedBox(height: 28),
 
+<<<<<<< HEAD
             Text(
               'Discover Latest Collection',
               style: TextStyle(
@@ -109,6 +137,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 fontWeight: FontWeight.bold,
                 color: isDark ? Colors.white : Colors.black,
               ),
+=======
+            const Text(
+              'Discover Latest Collection',
+              style: TextStyle(fontFamily: 'TomatoGrotesk', fontSize: 18, fontWeight: FontWeight.bold),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             ),
             const SizedBox(height: 12),
 
@@ -128,18 +161,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   context,
                   subCategories[i]['image']!,
                   subCategories[i]['tag']!,
+<<<<<<< HEAD
                   isDark,
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 );
               },
             ),
           ],
         ),
       ),
+<<<<<<< HEAD
       
       // ✅ GANTI: Index 1 untuk Category, tanpa onTap
       bottomNavigationBar: CustomBottomNav(
         currentIndex: 1, // Index 1: Category
       ),
+=======
+      bottomNavigationBar: _BottomNav(),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
     );
   }
 
@@ -147,7 +187,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return _CategoryButton(image: image, title: title, index: index);
   }
 
+<<<<<<< HEAD
   Widget _buildSubCategory(BuildContext context, String image, String tag, bool isDark) {
+=======
+  Widget _buildSubCategory(BuildContext context, String image, String tag) {
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -159,7 +203,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
       },
       child: Container(
         decoration: BoxDecoration(
+<<<<<<< HEAD
           color: isDark ? Colors.grey[850] : const Color(0xFFF5F5F5),
+=======
+          color: const Color(0xFFF5F5F5),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -172,10 +220,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Image.asset(
                   image,
                   fit: BoxFit.contain,
+<<<<<<< HEAD
                   errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.image_not_supported,
                     size: 36,
                     color: isDark ? Colors.grey[600] : Colors.grey,
+=======
+                  // Fallback when asset is missing so UI still shows instead of a blank area
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.image_not_supported,
+                    size: 36,
+                    color: Colors.grey,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   ),
                 ),
               ),
@@ -185,11 +241,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
               alignment: Alignment.center,
               child: Text(
                 tag,
+<<<<<<< HEAD
                 style: TextStyle(
                   fontFamily: 'TomatoGrotesk',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: isDark ? Colors.white : Colors.black,
+=======
+                style: const TextStyle(
+                  fontFamily: 'TomatoGrotesk',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -201,16 +265,58 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 }
 
+<<<<<<< HEAD
+=======
+class _BottomNav extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cartCount = context.watch<KeranjangProvider>().jumlah;
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: 3, // Category
+      onTap: (i) {
+        if (i == 3) return; // already here
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Menu index $i belum diimplementasikan')),
+        );
+      },
+      items: [
+        const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
+        const BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: ''),
+        BottomNavigationBarItem(
+          label: '',
+          icon: badges.Badge(
+            position: badges.BadgePosition.topEnd(top: -8, end: -10),
+            badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
+            badgeContent: Text(
+              cartCount.toString(),
+              style: const TextStyle(fontFamily: 'TomatoGrotesk', color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+            ),
+            child: const Icon(Icons.shopping_cart_outlined),
+          ),
+        ),
+        const BottomNavigationBarItem(icon: Icon(Icons.article_outlined), label: ''),
+        const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
+      ],
+    );
+  }
+}
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 class _CategoryButton extends StatefulWidget {
   final String image;
   final String title;
   final int index;
 
+<<<<<<< HEAD
   const _CategoryButton({
     required this.image,
     required this.title,
     required this.index,
   });
+=======
+  const _CategoryButton({required this.image, required this.title, required this.index});
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 
   @override
   State<_CategoryButton> createState() => _CategoryButtonState();
@@ -221,8 +327,11 @@ class _CategoryButtonState extends State<_CategoryButton> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final isDark = Theme.of(context).brightness == Brightness.dark;
     
+=======
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
     return GestureDetector(
       onTapDown: (_) => setState(() => _pressed = true),
       onTapCancel: () => setState(() => _pressed = false),
@@ -230,9 +339,13 @@ class _CategoryButtonState extends State<_CategoryButton> {
         setState(() => _pressed = false);
         Navigator.push(
           context,
+<<<<<<< HEAD
           MaterialPageRoute(
             builder: (_) => ProductListScreen(title: widget.title),
           ),
+=======
+          MaterialPageRoute(builder: (_) => ProductListScreen(title: widget.title)),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
         );
       },
       child: Column(
@@ -255,15 +368,20 @@ class _CategoryButtonState extends State<_CategoryButton> {
                       ? const Color(0xFFFF8A80)
                       : (widget.index == 1 ? const Color(0xFFF0F0F0) : null),
                   boxShadow: const [
+<<<<<<< HEAD
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 8,
                       offset: Offset(0, 2),
                     ),
+=======
+                    BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(6),
+<<<<<<< HEAD
                   child: ClipOval(
                     child: Image.asset(
                       widget.image,
@@ -275,6 +393,19 @@ class _CategoryButtonState extends State<_CategoryButton> {
                       ),
                     ),
                   ),
+=======
+                    child: ClipOval(
+                      child: Image.asset(
+                        widget.image,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => const Icon(
+                          Icons.image_not_supported,
+                          size: 36,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 ),
               ),
             ),
@@ -284,6 +415,7 @@ class _CategoryButtonState extends State<_CategoryButton> {
             duration: const Duration(milliseconds: 150),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
+<<<<<<< HEAD
               color: _pressed 
                   ? const Color(0xFFFFD700) 
                   : (isDark ? Colors.grey[850] : Colors.white),
@@ -293,6 +425,11 @@ class _CategoryButtonState extends State<_CategoryButton> {
                     ? const Color(0xFFFFD700) 
                     : (isDark ? Colors.grey[700]! : const Color(0xFFE6E6E6)),
               ),
+=======
+              color: _pressed ? const Color(0xFFFFD700) : Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: _pressed ? const Color(0xFFFFD700) : const Color(0xFFE6E6E6)),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.04),
@@ -307,9 +444,13 @@ class _CategoryButtonState extends State<_CategoryButton> {
                 fontFamily: 'TomatoGrotesk',
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
+<<<<<<< HEAD
                 color: _pressed 
                     ? Colors.black 
                     : (isDark ? Colors.white : Colors.black),
+=======
+                color: _pressed ? Colors.black : Colors.black,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
               ),
             ),
           ),

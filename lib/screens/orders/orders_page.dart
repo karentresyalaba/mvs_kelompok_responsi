@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 // lib/screens/orders/orders_page.dart
 import 'package:flutter/material.dart';
 import '../../widgets/custom/custom_bottom_nav.dart';
 import '../../widgets/custom/app_drawer.dart';
+=======
+import 'package:flutter/material.dart';
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
 
   @override
+<<<<<<< HEAD
   State<OrdersPage> createState() => _OrdersPageState();
 }
 
@@ -103,10 +108,36 @@ class _OrdersPageState extends State<OrdersPage> {
                 size: 20,
               ),
             ),
+=======
+  _OrdersPageState createState() => _OrdersPageState();
+}
+
+class _OrdersPageState extends State<OrdersPage> {
+  bool isOngoingSelected = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'My Order',
+          style: TextStyle(
+            fontFamily: 'TomatoGrotesk',
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home_outlined, color: Colors.black),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             onPressed: () {},
           ),
         ],
       ),
+<<<<<<< HEAD
       drawer: const AppDrawer(),
       body: Column(
         children: [
@@ -118,12 +149,20 @@ class _OrdersPageState extends State<OrdersPage> {
               color: isDark ? Colors.grey[850] : Colors.white,
               borderRadius: BorderRadius.circular(30),
             ),
+=======
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             child: Row(
               children: [
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
+<<<<<<< HEAD
                         selectedTab = 'ongoing';
                       });
                     },
@@ -145,15 +184,38 @@ class _OrdersPageState extends State<OrdersPage> {
                               ? Colors.black
                               : (isDark ? Colors.grey[400] : Colors.grey[600]),
                           fontFamily: 'TomatoGrotesk',
+=======
+                        isOngoingSelected = true;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: isOngoingSelected ? const Color(0xFFFFA500) : Colors.white,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Ongoing',
+                        style: TextStyle(
+                          fontFamily: 'TomatoGrotesk',
+                          color: isOngoingSelected ? Colors.black : Colors.grey,
+                          fontWeight: FontWeight.bold,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                         ),
                       ),
                     ),
                   ),
                 ),
+<<<<<<< HEAD
+=======
+                const SizedBox(width: 8.0),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
+<<<<<<< HEAD
                         selectedTab = 'completed';
                       });
                     },
@@ -175,6 +237,24 @@ class _OrdersPageState extends State<OrdersPage> {
                               ? Colors.black
                               : (isDark ? Colors.grey[400] : Colors.grey[600]),
                           fontFamily: 'TomatoGrotesk',
+=======
+                        isOngoingSelected = false;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: !isOngoingSelected ? const Color(0xFFFFA500) : Colors.white,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Completed',
+                        style: TextStyle(
+                          fontFamily: 'TomatoGrotesk',
+                          color: !isOngoingSelected ? Colors.black : Colors.grey,
+                          fontWeight: FontWeight.bold,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                         ),
                       ),
                     ),
@@ -183,6 +263,7 @@ class _OrdersPageState extends State<OrdersPage> {
               ],
             ),
           ),
+<<<<<<< HEAD
 
           // Orders List
           Expanded(
@@ -416,6 +497,138 @@ class _OrdersPageState extends State<OrdersPage> {
                 ),
               ],
             ),
+=======
+          Expanded(
+            child: isOngoingSelected
+                ? ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Image.asset(
+                                  'assets/images/product1.png', // Assuming this is the glasses image; replace with appropriate asset if needed
+                                  width: 80.0,
+                                  height: 80.0,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Silver Purple Full Rim',
+                                      style: TextStyle(
+                                        fontFamily: 'TomatoGrotesk',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    const Text(
+                                      'Cat Eye',
+                                      style: TextStyle(
+                                        fontFamily: 'TomatoGrotesk',
+                                        fontSize: 14.0,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(20.0),
+                                      ),
+                                      child: const Text(
+                                        'Track Order',
+                                        style: TextStyle(
+                                          fontFamily: 'TomatoGrotesk',
+                                          color: Colors.black,
+                                          fontSize: 12.0,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    const Text(
+                                      'FREE Delivery',
+                                      style: TextStyle(
+                                        fontFamily: 'TomatoGrotesk',
+                                        color: Colors.green,
+                                        fontSize: 12.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Text(
+                                      '\$100',
+                                      style: TextStyle(
+                                        fontFamily: 'TomatoGrotesk',
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8.0),
+                                    Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.star,
+                                          color: Color(0xFFFFA500),
+                                          size: 16.0,
+                                        ),
+                                        Text(
+                                          '4.8',
+                                          style: TextStyle(
+                                            fontFamily: 'TomatoGrotesk',
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: Text(
+                      'No completed orders',
+                      style: TextStyle(
+                        fontFamily: 'TomatoGrotesk',
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
           ),
         ],
       ),

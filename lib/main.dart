@@ -9,6 +9,11 @@ import 'providers/theme_provider.dart';
 import 'screens/wishlist/wishlist_page.dart';
 import 'screens/cart/cart_page.dart';
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 // Screens
 import 'screens/category/category_screen.dart';
 import 'screens/load/load_screen.dart';
@@ -29,6 +34,12 @@ import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart
 import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
 import 'screens/cart/cart_page.dart';import 'screens/wishlist/wishlist_page.dart';
 import 'screens/cart/cart_page.dart';
+<<<<<<< HEAD
+=======
+import 'screens/orders/orders_page.dart';
+import 'screens/profile/profile_page.dart';
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 
 void main() {
   runApp(
@@ -68,7 +79,22 @@ class MyApp extends StatelessWidget {
         // Tambahin di bagian routes di main.dart kelompok
         '/wishlist': (context) => const WishlistPage(),
         '/cart': (context) => const CartPage(),
+<<<<<<< HEAD
+=======
+        '/orders': (context) => const OrdersPage(),
+        '/profile': (context) => const ProfilePage(),
+
+
+
+
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
       },
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336

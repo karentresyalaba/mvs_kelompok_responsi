@@ -1,4 +1,5 @@
 // lib/widgets/custom/app_drawer.dart
+<<<<<<< HEAD
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +18,46 @@ import '../../screens/wishlist/wishlist_page.dart' as wishlist;
 import '../../screens/cart/cart_page.dart' as cart;
 import '../../screens/product/product_list_screen.dart';
 import '../../screens/auth/login_screen.dart';
+=======
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/theme_provider.dart';
+import '../../screens/splash/splash_screen.dart';
+import '../../screens/home/home_page.dart';
+import '../../screens/components/components_page.dart';
+import '../../screens/pages/pages_page.dart' hide WishlistPage, CartPage;
+import '../../screens/profile/profile_page.dart';
+import '../../screens/chat/chat_list_page.dart';
+import '../../screens/wishlist/wishlist_page.dart';
+import '../../screens/cart/cart_page.dart';
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
 
+<<<<<<< HEAD
+=======
+  void _showComingSoon(BuildContext context, String feature) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '$feature - Coming Soon!',
+          style: const TextStyle(fontFamily: 'TomatoGrotesk'),
+        ),
+        backgroundColor: const Color(0xFFFFA726),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
     return Drawer(
+<<<<<<< HEAD
       backgroundColor: isDark ? Colors.grey[900] : Colors.white,
       child: Column(
         children: [
@@ -88,11 +119,46 @@ class AppDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 8),
+=======
+      child: Column(
+        children: [
+          // HEADER
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              'Roopa',
+              style: TextStyle(
+                fontFamily: 'TomatoGrotesk',
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ),
+            accountEmail: Text(
+              'example@gmail.com',
+              style: TextStyle(
+                fontFamily: 'TomatoGrotesk',
+                color: isDark ? Colors.white70 : Colors.black54,
+              ),
+            ),
+            currentAccountPicture: const CircleAvatar(
+              backgroundImage: AssetImage('assets/images/banner.png'),
+            ),
+            decoration: BoxDecoration(
+              color: isDark ? Colors.grey[850] : Colors.white,
+            ),
+            margin: EdgeInsets.zero,
+          ),
+
+          // MENU ITEMS
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
               children: [
                 _buildMenuItem(
                   context,
                   Icons.home_outlined,
                   'Home',
+<<<<<<< HEAD
                   () => _navigate(context, HomePage()),
                 ),
                 
@@ -110,26 +176,74 @@ class AppDrawer extends StatelessWidget {
                   () => _navigate(context, ComponentsPage()),
                 ),
                 
+=======
+                  () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.category_outlined,
+                  'Products',
+                  () => _showComingSoon(context, 'Products'),
+                ),
+                _buildMenuItem(
+                  context,
+                  Icons.widgets_outlined,
+                  'Components',
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ComponentsPage(),
+                      ),
+                    );
+                  },
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.diamond_outlined,
                   'Pages',
+<<<<<<< HEAD
                   () => _navigate(context, PagesPage()),
                 ),
 
+=======
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PagesPage(),
+                      ),
+                    );
+                  },
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.star_outline,
                   'Featured',
+<<<<<<< HEAD
                   () {
                     Navigator.pop(context);
                   },
                 ),
                 
+=======
+                  () => _showComingSoon(context, 'Featured'),
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.favorite_border,
                   'Wishlist',
+<<<<<<< HEAD
                   () => _navigate(context, wishlist.WishlistPage()),
                 ),
                 
@@ -140,24 +254,60 @@ class AppDrawer extends StatelessWidget {
                   () => _navigate(context, OrdersPage()),
                 ),
                 
+=======
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WishlistPage(),
+                      ),
+                    );
+                  },
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.shopping_cart_outlined,
                   'My Cart',
+<<<<<<< HEAD
                   () => _navigate(context, cart.CartPage()),
                 ),
 
+=======
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CartPage(),
+                      ),
+                    );
+                  },
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.person_outline,
                   'Profile',
+<<<<<<< HEAD
                   () => _navigate(context, ProfilePage()),
                 ),
                 
+=======
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage(),
+                      ),
+                    );
+                  },
+                ),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 _buildMenuItem(
                   context,
                   Icons.chat_bubble_outline,
                   'Chat List',
+<<<<<<< HEAD
                   () => _navigate(context, ChatListPage()),
                 ),
 
@@ -169,6 +319,16 @@ class AppDrawer extends StatelessWidget {
                     thickness: 1,
                     color: isDark ? Colors.grey[800] : Colors.grey[200],
                   ),
+=======
+                  () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatListPage(),
+                      ),
+                    );
+                  },
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                 ),
 
                 // 🔥 LOGOUT
@@ -198,6 +358,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
 
+<<<<<<< HEAD
           // THEME OPTION
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -210,6 +371,11 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
+=======
+          // THEME SWITCH
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -217,6 +383,7 @@ class AppDrawer extends StatelessWidget {
                   'Theme Option',
                   style: TextStyle(
                     fontFamily: 'TomatoGrotesk',
+<<<<<<< HEAD
                     color: isDark ? Colors.white : Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -238,6 +405,44 @@ class AppDrawer extends StatelessWidget {
                       color: isDark ? Colors.white : Colors.black,
                       size: 24,
                     ),
+=======
+                    color: isDark ? Colors.white70 : Colors.black54,
+                  ),
+                ),
+                Switch(
+                  value: isDark,
+                  activeColor: const Color(0xFFFFA726),
+                  onChanged: (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
+                  },
+                ),
+              ],
+            ),
+          ),
+
+          // FOOTER
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: isDark ? Colors.grey[800] : Colors.grey[100],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'LensMart Glasses Store',
+                  style: TextStyle(
+                    fontFamily: 'TomatoGrotesk',
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFFFA726),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'App Version 1.0',
+                  style: TextStyle(
+                    fontFamily: 'TomatoGrotesk',
+                    color: isDark ? Colors.white60 : Colors.grey,
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   ),
                 ),
               ],
@@ -248,6 +453,7 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   // ============================================
   // HELPER METHODS
   // ============================================
@@ -282,11 +488,20 @@ class AppDrawer extends StatelessWidget {
         color: const Color(0xFFFFA726),
         size: 26,
       ),
+=======
+  Widget _buildMenuItem(
+      BuildContext context, IconData icon, String title, VoidCallback onTap) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return ListTile(
+      leading: Icon(icon, color: const Color(0xFFFFA726)),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
       title: Text(
         title,
         style: TextStyle(
           fontFamily: 'TomatoGrotesk',
           color: isDark ? Colors.white : Colors.black,
+<<<<<<< HEAD
           fontWeight: FontWeight.w500,
           fontSize: 16,
         ),
@@ -296,6 +511,11 @@ class AppDrawer extends StatelessWidget {
         color: isDark ? Colors.white54 : Colors.black54,
         size: 24,
       ),
+=======
+        ),
+      ),
+      trailing: const Icon(Icons.chevron_right),
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
       onTap: () async {
         Navigator.pop(context);
         await Future.delayed(const Duration(milliseconds: 150));
@@ -303,4 +523,8 @@ class AppDrawer extends StatelessWidget {
       },
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336

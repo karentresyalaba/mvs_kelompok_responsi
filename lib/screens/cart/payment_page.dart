@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // lib/screens/cart/payment_page.dart
 import 'package:flutter/material.dart';
 
@@ -202,6 +203,14 @@ class _PaymentPageState extends State<PaymentPage> {
   final TextEditingController upiController = TextEditingController();
 
   @override
+=======
+import 'package:flutter/material.dart';
+
+class PaymentPage extends StatelessWidget {
+  const PaymentPage({Key? key}) : super(key: key);
+
+  @override
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -212,7 +221,11 @@ class _PaymentPageState extends State<PaymentPage> {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
+<<<<<<< HEAD
           'Payment',
+=======
+          'Payment Method',
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
           style: TextStyle(
             color: Colors.black,
             fontSize: 18,
@@ -220,6 +233,7 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         ),
       ),
+<<<<<<< HEAD
       body: Column(
         children: [
           Expanded(
@@ -504,6 +518,43 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             ),
             child: SizedBox(
+=======
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Your Cards',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'TomatoGrotesk',
+              ),
+            ),
+            const SizedBox(height: 16),
+            CreditCardWidget(
+              cardNumber: '4242 4242 4242 4242',
+              cardHolder: 'John Doe',
+              expiry: '12/25',
+              cvv: '123',
+              isVisa: true,
+              isSelected: true,
+              onTap: () {},
+            ),
+            const SizedBox(height: 12),
+            CreditCardWidget(
+              cardNumber: '5555 5555 5555 4444',
+              cardHolder: 'John Doe',
+              expiry: '12/24',
+              cvv: '321',
+              isVisa: false,
+              isSelected: false,
+              onTap: () {},
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
               width: double.infinity,
               height: 56,
               child: ElevatedButton(
@@ -517,7 +568,11 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                 ),
                 child: const Text(
+<<<<<<< HEAD
                   'Continue',
+=======
+                  'Add New Card',
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -527,6 +582,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ),
             ),
+<<<<<<< HEAD
           ),
         ],
       ),
@@ -539,3 +595,98 @@ class _PaymentPageState extends State<PaymentPage> {
     super.dispose();
   }
 }
+=======
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreditCardWidget extends StatelessWidget {
+  final String cardNumber;
+  final String cardHolder;
+  final String expiry;
+  final String cvv;
+  final bool isVisa;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final Color? backgroundColor;
+
+  const CreditCardWidget({
+    super.key,
+    required this.cardNumber,
+    required this.cardHolder,
+    required this.expiry,
+    required this.cvv,
+    required this.isVisa,
+    required this.isSelected,
+    required this.onTap,
+    this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        color: backgroundColor ??
+            (isSelected ? const Color(0xFFFFA726) : Colors.black87),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Container(
+          width: 300,
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                isVisa ? 'VISA' : 'MasterCard',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'TomatoGrotesk',
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                cardNumber,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  letterSpacing: 2,
+                  fontFamily: 'TomatoGrotesk',
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    cardHolder,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontFamily: 'TomatoGrotesk',
+                    ),
+                  ),
+                  Text(
+                    expiry,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontFamily: 'TomatoGrotesk',
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+>>>>>>> 6bb3292690799ba5fdb3b65e11b64d2ec4f20336
