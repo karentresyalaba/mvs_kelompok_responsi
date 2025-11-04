@@ -22,7 +22,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
   String _selectedCategory = 'All';
   final List<String> categories = ['All', 'Child', 'Men', 'Women', 'Dress', 'Unisex'];
 
@@ -51,16 +50,9 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNav(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() => _selectedIndex = index);
-
-          // Navigasi contoh dari BottomNav
-          if (index == 1) {
-            Navigator.pushNamed(context, '/category');
-          }
-        },
+      // Gunakan CustomBottomNav dengan currentIndex 0 untuk Home
+      bottomNavigationBar: const CustomBottomNav(
+        currentIndex: 0, // Index 0: Home
       ),
     );
   }

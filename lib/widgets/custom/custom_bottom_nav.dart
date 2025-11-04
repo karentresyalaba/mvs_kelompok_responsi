@@ -1,15 +1,70 @@
 // lib/widgets/custom/custom_bottom_nav.dart
 import 'package:flutter/material.dart';
 
+// Import semua halaman yang akan dipanggil
+// SESUAIKAN PATH INI DENGAN STRUKTUR FOLDER ANDA!
+import '../../screens/home/home_page.dart';
+import '../../screens/category/category_screen.dart';
+import '../../screens/wishlist/wishlist_page.dart';
+import '../../screens/cart/cart_page.dart';
+import '../../screens/orders/orders_page.dart';
+import '../../screens/profile/profile_page.dart';
+
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
 
   const CustomBottomNav({
     Key? key,
     required this.currentIndex,
-    required this.onTap,
+    this.onTap, // TIDAK ADA 'required' karena sudah opsional dengan tanda '?'
   }) : super(key: key);
+
+  // Method untuk navigasi ke halaman
+  void _navigateToPage(BuildContext context, int index) {
+    // Jangan navigasi kalau sudah di halaman yang sama
+    if (currentIndex == index) return;
+
+    Widget page;
+    
+    switch (index) {
+      case 0:
+        page = HomePage();
+        break;
+      case 1:
+        page = const CategoryScreen();
+        break;
+      case 2:
+        page = WishlistPage();
+        break;
+      case 3:
+        page = CartPage();
+        break;
+      case 4:
+        page = OrdersPage();
+        break;
+      case 5:
+        page = ProfilePage();
+        break;
+      default:
+        return;
+    }
+
+    // Gunakan pushReplacement agar tidak menumpuk stack
+    Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +88,7 @@ class CustomBottomNav extends StatelessWidget {
         left: 8,
         right: 8,
         top: 8,
-        bottom: 8 + bottomPadding, // Safe area bottom padding
+        bottom: 8 + bottomPadding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -103,7 +158,15 @@ class CustomBottomNav extends StatelessWidget {
 
     return Expanded(
       child: InkWell(
-        onTap: () => onTap(index),
+        onTap: () {
+          // Panggil onTap callback jika ada
+          if (onTap != null) {
+            onTap!(index);
+          } else {
+            // Kalau tidak ada callback, navigasi langsung
+            _navigateToPage(context, index);
+          }
+        },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
@@ -149,7 +212,15 @@ class CustomBottomNav extends StatelessWidget {
 
     return Expanded(
       child: InkWell(
-        onTap: () => onTap(index),
+        onTap: () {
+          // Panggil onTap callback jika ada
+          if (onTap != null) {
+            onTap!(index);
+          } else {
+            // Kalau tidak ada callback, navigasi langsung
+            _navigateToPage(context, index);
+          }
+        },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
@@ -161,9 +232,7 @@ class CustomBottomNav extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   Icon(
-                    isActive
-                        ? Icons.shopping_cart
-                        : Icons.shopping_cart_outlined,
+                    isActive ? Icons.shopping_cart : Icons.shopping_cart_outlined,
                     size: 24,
                     color: isActive
                         ? const Color(0xFFFFA726)

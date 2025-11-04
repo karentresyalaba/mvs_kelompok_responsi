@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:badges/badges.dart' as badges;
 import '../../providers/keranjang_provider.dart';
 import '../product/product_list_screen.dart';
+import '../../widgets/custom/custom_bottom_nav.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -14,6 +14,8 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     final List<Map<String, String>> mainCategories = [
       {'image': 'assets/images/category/category1.png', 'title': 'Child'},
       {'image': 'assets/images/category/category2.png', 'title': 'Men'},
@@ -30,17 +32,34 @@ class _CategoryScreenState extends State<CategoryScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: isDark ? Colors.grey[900] : Colors.white,
       appBar: AppBar(
-        title: const Text('Category'),
+        backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Category',
+          style: TextStyle(
+            fontFamily: 'TomatoGrotesk',
+            color: isDark ? Colors.white : Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: isDark ? Colors.white : Colors.black,
+            ),
             onPressed: () {},
           ),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
-          child: Container(height: 1, color: const Color(0xFFECECEC)),
+          child: Container(
+            height: 1,
+            color: isDark ? Colors.grey[800] : const Color(0xFFECECEC),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -48,9 +67,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Set your wardrobe with our amazing selection!',
-              style: TextStyle(fontFamily: 'TomatoGrotesk', fontSize: 18, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                fontFamily: 'TomatoGrotesk',
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: isDark ? Colors.white : Colors.black,
+              ),
             ),
             const SizedBox(height: 20),
 
@@ -77,9 +101,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
             const SizedBox(height: 28),
 
-            const Text(
+            Text(
               'Discover Latest Collection',
-              style: TextStyle(fontFamily: 'TomatoGrotesk', fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontFamily: 'TomatoGrotesk',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white : Colors.black,
+              ),
             ),
             const SizedBox(height: 12),
 
@@ -99,13 +128,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   context,
                   subCategories[i]['image']!,
                   subCategories[i]['tag']!,
+                  isDark,
                 );
               },
             ),
           ],
         ),
       ),
-      bottomNavigationBar: _BottomNav(),
+      
+      // ✅ GANTI: Index 1 untuk Category, tanpa onTap
+      bottomNavigationBar: CustomBottomNav(
+        currentIndex: 1, // Index 1: Category
+      ),
     );
   }
 
@@ -113,7 +147,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return _CategoryButton(image: image, title: title, index: index);
   }
 
-  Widget _buildSubCategory(BuildContext context, String image, String tag) {
+  Widget _buildSubCategory(BuildContext context, String image, String tag, bool isDark) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -125,7 +159,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
+          color: isDark ? Colors.grey[850] : const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -138,11 +172,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 child: Image.asset(
                   image,
                   fit: BoxFit.contain,
-                  // Fallback when asset is missing so UI still shows instead of a blank area
-                  errorBuilder: (context, error, stackTrace) => const Icon(
+                  errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.image_not_supported,
                     size: 36,
-                    color: Colors.grey,
+                    color: isDark ? Colors.grey[600] : Colors.grey,
                   ),
                 ),
               ),
@@ -152,11 +185,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
               alignment: Alignment.center,
               child: Text(
                 tag,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'TomatoGrotesk',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: isDark ? Colors.white : Colors.black,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -168,47 +201,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 }
 
-class _BottomNav extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final cartCount = context.watch<KeranjangProvider>().jumlah;
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      currentIndex: 3, // Category
-      onTap: (i) {
-        if (i == 3) return; // already here
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Menu index $i belum diimplementasikan')),
-        );
-      },
-      items: [
-        const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
-        const BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: ''),
-        BottomNavigationBarItem(
-          label: '',
-          icon: badges.Badge(
-            position: badges.BadgePosition.topEnd(top: -8, end: -10),
-            badgeStyle: const badges.BadgeStyle(badgeColor: Colors.red),
-            badgeContent: Text(
-              cartCount.toString(),
-              style: const TextStyle(fontFamily: 'TomatoGrotesk', color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-            ),
-            child: const Icon(Icons.shopping_cart_outlined),
-          ),
-        ),
-        const BottomNavigationBarItem(icon: Icon(Icons.article_outlined), label: ''),
-        const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
-      ],
-    );
-  }
-}
-
 class _CategoryButton extends StatefulWidget {
   final String image;
   final String title;
   final int index;
 
-  const _CategoryButton({required this.image, required this.title, required this.index});
+  const _CategoryButton({
+    required this.image,
+    required this.title,
+    required this.index,
+  });
 
   @override
   State<_CategoryButton> createState() => _CategoryButtonState();
@@ -219,6 +221,8 @@ class _CategoryButtonState extends State<_CategoryButton> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return GestureDetector(
       onTapDown: (_) => setState(() => _pressed = true),
       onTapCancel: () => setState(() => _pressed = false),
@@ -226,7 +230,9 @@ class _CategoryButtonState extends State<_CategoryButton> {
         setState(() => _pressed = false);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => ProductListScreen(title: widget.title)),
+          MaterialPageRoute(
+            builder: (_) => ProductListScreen(title: widget.title),
+          ),
         );
       },
       child: Column(
@@ -249,22 +255,26 @@ class _CategoryButtonState extends State<_CategoryButton> {
                       ? const Color(0xFFFF8A80)
                       : (widget.index == 1 ? const Color(0xFFF0F0F0) : null),
                   boxShadow: const [
-                    BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 2)),
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(6),
-                    child: ClipOval(
-                      child: Image.asset(
-                        widget.image,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(
-                          Icons.image_not_supported,
-                          size: 36,
-                          color: Colors.grey,
-                        ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      widget.image,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.image_not_supported,
+                        size: 36,
+                        color: isDark ? Colors.grey[600] : Colors.grey,
                       ),
                     ),
+                  ),
                 ),
               ),
             ),
@@ -274,9 +284,15 @@ class _CategoryButtonState extends State<_CategoryButton> {
             duration: const Duration(milliseconds: 150),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: _pressed ? const Color(0xFFFFD700) : Colors.white,
+              color: _pressed 
+                  ? const Color(0xFFFFD700) 
+                  : (isDark ? Colors.grey[850] : Colors.white),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: _pressed ? const Color(0xFFFFD700) : const Color(0xFFE6E6E6)),
+              border: Border.all(
+                color: _pressed 
+                    ? const Color(0xFFFFD700) 
+                    : (isDark ? Colors.grey[700]! : const Color(0xFFE6E6E6)),
+              ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.04),
@@ -291,7 +307,9 @@ class _CategoryButtonState extends State<_CategoryButton> {
                 fontFamily: 'TomatoGrotesk',
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: _pressed ? Colors.black : Colors.black,
+                color: _pressed 
+                    ? Colors.black 
+                    : (isDark ? Colors.white : Colors.black),
               ),
             ),
           ),
